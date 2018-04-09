@@ -1,3 +1,5 @@
+#PhpStorm IDE settings
+.idea
 
 ###> symfony/framework-bundle ###
 /.env
