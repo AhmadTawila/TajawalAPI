@@ -1,0 +1,14 @@
+plugins:
+  # PHP Code Sniffer
+  phpcodesniffer:
+    enabled: true
+    config:
+      standard: "PSR1,PSR2"
+      file_extensions: "php,inc,lib"
+      ignore_warnings: true
+  # PHP Mess Detector
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: "php"
+      rulesets: "unusedcode,codesize,naming"
