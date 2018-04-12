@@ -47,7 +47,7 @@ You need a machine that has `PHP 7.2` and `Composer` installed.
 
 ### Usage
 
-####consuming the API
+#### consuming the API
 - using any RestAPI client like [Postman](https://www.getpostman.com/) call the following URL
     ```
     GET http://localhost:8000/search
