@@ -38,5 +38,45 @@ You need a machine that has `PHP 7.2` and `Composer` installed.
     ```
     composer install --dev
     ```
+- run the local webserver
+    ```
+    php bin/console server:run
+    ```
+    
+    The default URL for this installation from you local machine should be `http://localhost:8000`
 
 ### Usage
+
+####consuming the API
+- using any RestAPI client like [Postman](https://www.getpostman.com/) call the following URL
+    ```
+    GET http://localhost:8000/search
+    ```
+- use the follwing parameters to narrow down your search results.
+    ```
+    f[hotel_name]=Gold  // a part of the hotel name, case insinsitive.
+    f[city]=cairo       // city name must match the exact name, case insinsitive.
+    f[price_max]=200    // int/float value (100, 90.5, 111.3, ... etc)
+    f[price_min]=200
+    f[start_date]=200   // start date, format yy-mm-yyy (ex. 21-09-2020)
+    f[end_date]=200     // end data same format
+    
+    s[hotel_name]=asc   // Sorting by hotel name (values 'asc' or 'desc', default 'asc')
+    s[price]=asc        // Sorting by price      (values 'asc' or 'desc', default 'asc')
+    ```
+    
+    example call URLs
+    ```
+    GET http://localhost:8000/search?f[city]=cairo&f[price_max]=200&s[price]=asc
+    
+    GET http://localhost:8000/search?f[hotel_name]=tuli
+    
+    GET http://localhost:8000/search
+    ```
+    
+#### running the tests
+Tests are written with PHPUnit 7 (that's why it fail on Scrutinizer-CI, I'll fix it :) )
+    
+
+    cd TajawalAPI
+    bin/phpunit
