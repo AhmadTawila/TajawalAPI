@@ -59,12 +59,12 @@ class APIClient implements APIClientInterface
     {
         $data = $this->getDataFromRemoteService();
 
-        $filteredData = array_filter($data->hotels, function($hotel) use ($filters){
+        $filteredData = array_filter($data->hotels, function ($hotel) use ($filters) {
             return $this->matchHotelAgainstFilters($hotel, $filters);
             //return true;
         });
 
-        usort($filteredData, function($a, $b) use ($sorting){
+        usort($filteredData, function ($a, $b) use ($sorting) {
             return $this->decideOrderBasedOnSortingCriteria($a, $b, $sorting);
         });
 
@@ -76,14 +76,13 @@ class APIClient implements APIClientInterface
      */
     private function getDataFromRemoteService()
     {
-        if ($this->_testMode && is_readable($this->_debuggingContent)){
+        if ($this->_testMode && is_readable($this->_debuggingContent)) {
             return json_decode(file_get_contents($this->_debuggingContent));
         }
 
         $client = new Client();
         $response = $client->get(self::REMOTE_API_URL);
-        $data = json_decode($response->getBody()->getContents());
-        return $data;
+        return json_decode($response->getBody()->getContents());
     }
 
     /**
@@ -99,13 +98,13 @@ class APIClient implements APIClientInterface
         // the hotel is a match by default, until proved otherwise
         $match = true;
 
-        foreach ($filters as $criteria => $value){
+        foreach ($filters as $criteria => $value) {
             // break the loop if any previous filter missed.
             if (false === $match) {
                 return $match;
             }
 
-            switch ($criteria){
+            switch ($criteria) {
                 case 'hotel_name':
                     $match = ( !isset($value) || false !== stripos($hotel->name, $value));
                     break;
@@ -127,32 +126,28 @@ class APIClient implements APIClientInterface
             }
         }
 
-        if ($match){
+        if ($match) {
             $dateIsInRange = false;
-            if (isset($startDate, $endDate)){
+            if (isset($startDate, $endDate)) {
                 foreach ($hotel->availability as $range) {
-                    If ($dateIsInRange = ($this->isDateInRange($range->from, $range->to, $startDate)
+                    if ($dateIsInRange = ($this->isDateInRange($range->from, $range->to, $startDate)
                         && $this->isDateInRange($range->from, $range->to, $endDate))) {
                         break;
                     }
                 }
-            }elseif(
-                isset($startDate)
-            ){
+            } elseif (isset($startDate)) {
                 foreach ($hotel->availability as $range) {
                     if ($dateIsInRange = $this->isDateInRange($range->from, $range->to, $startDate)){
                         break;
                     }
                 }
-            }elseif(
-                isset($endDate)
-            ){
+            } elseif (isset($endDate)) {
                 foreach ($hotel->availability as $range) {
                     if ($dateIsInRange = $this->isDateInRange($range->from, $range->to, $endDate)){
                         break;
                     }
                 }
-            }else {
+            } else {
                 // No date criteria in the filters at all, So Ignore date filtering & consider it in range
                 $dateIsInRange = true;
             }
@@ -207,8 +202,6 @@ class APIClient implements APIClientInterface
         $given_ts = strtotime($givenDate);
 
         // Check given date is between start & end
-        $inRange = (($given_ts >= $start_ts) && ($given_ts <= $end_ts));
-        return $inRange;
+        return ($given_ts >= $start_ts) && ($given_ts <= $end_ts);
     }
-
 }

@@ -42,7 +42,7 @@ class SearchGateway
 
     /**
      * SearchGateway constructor.
-     * @param null $searchProvider
+     * @param null|string $searchProvider
      */
     public function __construct($searchProvider = null)
     {
@@ -65,11 +65,8 @@ class SearchGateway
         $this->ValidateParameterNames($filters, $this->_validFilters, 'search filter');
         $this->ValidateParameterNames($sorting, $this->_validSorting, 'sorting criteria');
 
-        $results = $this->_apiClient->getHotels($filters, $sorting);
-
         // @todo The should be some serializer here to unify the result format. Ignored for now as no business need for it.
-
-        return $results;
+        return $this->_apiClient->getHotels($filters, $sorting);
     }
 
     /**
