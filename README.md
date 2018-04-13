@@ -3,7 +3,7 @@ By Ahmad Tawila
 
 The challenge details is mentioned [here](https://github.com/tajawal/code-challenge/blob/master/BE.md)
 
-The Solution is implemented in PHP 7/2 with Symfony4 Framework, and PHPunit for testing.
+The Solution is implemented in PHP 7.2 with Symfony4 Framework, and PHPunit for testing.
 
 ------
 

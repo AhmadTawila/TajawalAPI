@@ -22,7 +22,9 @@ class DefaultControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->headers->get('content-type'));
+
         $this->assertSame('cairo', json_decode($response->getContent())[0]->city);
         $this->assertContains('hotel', json_decode($response->getContent())[0]->name, '', true);
+        $this->assertSame('cairo', json_decode($response->getContent())[0]->city);
     }
 }

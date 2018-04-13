@@ -25,17 +25,21 @@ class SearchGatewayTest extends TestCase
         );
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testInvalidSearchFiltersThrowsException(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
         $this->_searchGateway->findHotelsBy([
             'country' => 'EG'
         ], []);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testInvalidSortingCriteriaThrowsException(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
         $this->_searchGateway->findHotelsBy([], [
             'city' => 'Cairo'   // business requires you only sort by 'name' & 'price'
         ]);

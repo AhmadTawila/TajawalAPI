@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\APIClient;
 use App\Model\SearchGateway;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +14,10 @@ class TajawalAPIController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @param Request $request
-     *
      * @return Response
+     * @throws \InvalidArgumentException
      */
-    public function index(Request $request)
+    public function index(): Response
     {
         return new Response('Index');
     }
@@ -34,7 +34,7 @@ class TajawalAPIController extends Controller
         $filters = $request->get('f', []);
         $sorting = $request->get('s', []);
 
-        $searchGW = new SearchGateway();
+        $searchGW = new SearchGateway(APIClient::class);
         $hotels = $searchGW->findHotelsBy($filters, $sorting);
 
         return new JsonResponse($hotels);

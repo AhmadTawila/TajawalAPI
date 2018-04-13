@@ -129,20 +129,24 @@ class APIClient implements APIClientInterface
 
         if ($match){
             $dateIsInRange = false;
-            if (isset($startDate) && isset($endDate)){
+            if (isset($startDate, $endDate)){
                 foreach ($hotel->availability as $range) {
                     If ($dateIsInRange = ($this->isDateInRange($range->from, $range->to, $startDate)
                         && $this->isDateInRange($range->from, $range->to, $endDate))) {
                         break;
                     }
                 }
-            }elseif (isset($startDate)){
+            }elseif(
+                isset($startDate)
+            ){
                 foreach ($hotel->availability as $range) {
                     if ($dateIsInRange = $this->isDateInRange($range->from, $range->to, $startDate)){
                         break;
                     }
                 }
-            }elseif (isset($endDate)){
+            }elseif(
+                isset($endDate)
+            ){
                 foreach ($hotel->availability as $range) {
                     if ($dateIsInRange = $this->isDateInRange($range->from, $range->to, $endDate)){
                         break;
@@ -178,11 +182,13 @@ class APIClient implements APIClientInterface
 
         $sort = ('desc' === strtolower(reset($sorting))) ? 'desc' : 'asc';
 
+        $return = 0;
         if ('desc' === $sort) {
-            return $b <=> $a;
+            $return = $b <=> $a;
         } elseif ('asc' === $sort) {
-            return $a <=> $b;
+            $return = $a <=> $b;
         }
+        return $return;
     }
 
     /**
