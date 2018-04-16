@@ -58,7 +58,7 @@ You need a machine that has `PHP 7.2` and `Composer` installed.
     f[city]=cairo       // city name must match the exact name, case insinsitive.
     f[price_max]=200    // int/float value (100, 90.5, 111.3, ... etc)
     f[price_min]=200
-    f[start_date]=200   // start date, format yy-mm-yyy (ex. 21-09-2020)
+    f[start_date]=200   // start date, format dd-mm-yyyy (ex. 21-09-2020)
     f[end_date]=200     // end data same format
     
     s[hotel_name]=asc   // Sorting by hotel name (values 'asc' or 'desc', default 'asc')
@@ -75,8 +75,8 @@ You need a machine that has `PHP 7.2` and `Composer` installed.
     ```
     
 #### running the tests
-Tests are written with PHPUnit 7 (that's why it fail on Scrutinizer-CI, I'll fix it :) )
+Tests are written with PHPUnit 7
     
 
     cd TajawalAPI
-    bin/phpunit
+    vendor/bin/simple-phpunit
